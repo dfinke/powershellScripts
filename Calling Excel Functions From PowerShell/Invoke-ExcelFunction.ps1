@@ -5,7 +5,7 @@ $xlprocess = Get-Process excel
 
 $wf   = $xl.WorksheetFunction
 $data = 1,2,3,4
-$m    = ((1,2,3),(4,5,6),(7,8,9))
+$m    = ((1,2,3),(4,5,6),(7,8,10))
 
 Write-Host -ForegroundColor green Median
 $wf.Median($data)
