@@ -96,7 +96,7 @@ function Add-VSItem {
     )
     
     Process {
-    	if($name[0] -eq"i") {
+    	if($name[0] -eq "i") {
     	    Add-Interface $name 
     	} else {
     	    Add-Class $name 
