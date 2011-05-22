@@ -1,5 +1,8 @@
 . $PSScriptRoot\mutate.ps1
 . $PSScriptRoot\Add-PowerShellReference.ps1
+. $PSScriptRoot\Add-Reference.ps1
+. $PSScriptRoot\Get-Reference.ps1
+. $PSScriptRoot\Remove-Reference.ps1
 
 function ql {$args}
 
@@ -106,3 +109,5 @@ function Add-VSItem {
     	}
     }
 }
+
+Export-ModuleMember -Alias * -Function *
