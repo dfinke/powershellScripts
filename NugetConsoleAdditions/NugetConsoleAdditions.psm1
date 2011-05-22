@@ -1,3 +1,6 @@
+. $PSScriptRoot\mutate.ps1
+. $PSScriptRoot\Add-PowerShellReference.ps1
+
 function ql {$args}
 
 function Get-ProjectItem ($fileName) {
@@ -5,30 +8,30 @@ function Get-ProjectItem ($fileName) {
     .Synopsis
         A Quick Description of what the command does
     #>
-    $dte.Solution | 
-        ForEach {$_.ProjectItems} | 
-        ForEach {$_.properties | 
-        ForEach {$h=@{}}{$h.($_.name)=$_.value} {new-object psobject -Property $h}} |	
+    $dte.Solution |
+        ForEach {$_.ProjectItems} |
+        ForEach {$_.properties |
+        ForEach {$h=@{}}{$h.($_.name)=$_.value} {new-object psobject -Property $h}} |
         Add-Member -PassThru ScriptProperty LiteralPath {$this.FullPath} |
 	Where {$_.FileName -match $fileName} |
 }
 
-function Get-InterfaceTemplate { 
+function Get-InterfaceTemplate {
     <#
     .Synopsis
         A Quick Description of what the command does
     #>
 
-    $dte.Solution.GetProjectItemTemplate("Interface", "CSharp") 
+    $dte.Solution.GetProjectItemTemplate("Interface", "CSharp")
 }
 
-function Get-ClassTemplate { 
+function Get-ClassTemplate {
     <#
     .Synopsis
         A Quick Description of what the command does
     #>
-    
-    $dte.Solution.GetProjectItemTemplate("Class", "CSharp") 
+
+    $dte.Solution.GetProjectItemTemplate("Class", "CSharp")
 }
 
 function Add-VSItemByTemplate {
@@ -41,7 +44,7 @@ function Add-VSItemByTemplate {
 
     # TODO: Make it work with any name project
     # This supports only the start up project
-    $prj = Get-Project    
+    $prj = Get-Project
     $prj.ProjectItems.AddFromTemplate($template, $name)
 }
 
@@ -50,8 +53,8 @@ function Add-Class {
     .Synopsis
         A Quick Description of what the command does
     #>
-    param ($name)    
-    
+    param ($name)
+
     Add-VSItemByTemplate (Get-ClassTemplate) (Get-FixedFileName $name)
 }
 
@@ -61,7 +64,7 @@ function Add-Interface {
         A Quick Description of what the command does
     #>
     param ($name)
-    
+
     Add-VSItemByTemplate (Get-InterfaceTemplate) (Get-FixedFileName $name)
 }
 
@@ -74,11 +77,11 @@ function Get-FixedFileName {
         test.cs
     #>
     param ($name)
-    
+
     if(!$name.EndsWith(".cs")) {
     	$name += ".cs"
     }
-    
+
     $name
 }
 
@@ -88,18 +91,18 @@ function Add-VSItem {
         Adds eihter a class or interface. If specify ITest, it will add the interface ITest.
         If specify Test, it will add the class Test.
     .Example
-        ql ITest Test | Add-VSItem        
+        ql ITest Test | Add-VSItem
     #>
     param (
         [Parameter(ValueFromPipeline=$true)]
         $name
     )
-    
+
     Process {
     	if($name[0] -eq "i") {
-    	    Add-Interface $name 
+    	    Add-Interface $name
     	} else {
-    	    Add-Class $name 
+    	    Add-Class $name
     	}
     }
 }
