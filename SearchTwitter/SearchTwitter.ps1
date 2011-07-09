@@ -86,7 +86,7 @@ $textBboxAttributes = @{
     FontSize = 14
 }
 
-New-Window  @ws  -Show -On_Loaded {
+New-Window @windowAttributes -Show -On_Loaded {
     $search.focus()
     ql PowerShell ShowUI dfinke jamesbru  jaykul | 
         ForEach { 
