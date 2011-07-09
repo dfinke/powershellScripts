@@ -1,4 +1,5 @@
 # http://www.dougfinke.com/blog/index.php/2011/06/26/powershell-showui-and-the-twitter-api/
+# http://vimeo.com/25626751
 Import-Module ShowUI
 
 function Search-Twitter ($q = "PowerShell") {
