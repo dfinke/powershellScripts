@@ -47,7 +47,7 @@ function New-TwitterFeed ($search) {
             ItemsSource="."
         } -ItemTemplate {
             $tweetTbAttributes = @{
-                FontSize = 12
+                FontSize = 14
                 Margin = 5 
                 TextWrapping = "wrap"
                 Foreground = "White"
